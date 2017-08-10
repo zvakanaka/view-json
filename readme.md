@@ -1,6 +1,17 @@
 # view json
 [demo](https://zvakanaka.github.io/view-json)
 
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="view-json.html">
+    <view-json></view-json>
+  </template>
+</custom-element-demo>
+```
+-->
+
 ## Usage
 ### Default
 JSON within the element is prettyfied and colorized:

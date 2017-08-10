@@ -1,0 +1,26 @@
+{
+  "name": "view-json",
+  "homepage": "https://github.com/zvakanaka/view-json",
+  "authors": [
+    "Adam Quinton <quintonish@gmail.com>"
+  ],
+  "description": "native v1 web component super-pre tag",
+  "main": "view-json.html",
+  "keywords": [
+    "json",
+    "viewer",
+    "view",
+    "custom",
+    "element",
+    "web-component",
+    "v1"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
