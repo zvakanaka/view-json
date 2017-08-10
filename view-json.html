@@ -5,19 +5,25 @@ customElements.define('view-json', class extends HTMLElement {
   constructor() {
     super(); // always always
     let shadowRoot = this.attachShadow({mode: 'open'});
+    let colors = { green: '#a3eea0', orange: '#d19a66', blue: '#4ba7ef', magenta: '#df9cf3', red: '#f9857b', black: '#282c34', white: '#dbdff4'};
     shadowRoot.innerHTML = `
       <style>
-        :host pre {
-          background-color: var(--background-color, #282c34);/* dark-grey */
-          color: var(--color, #dbdff4);/* off-white */
-        }
+        :host pre { background-color: var(--background-color, ${colors.black}); color: var(--color, ${colors.white}); }
+        view-json pre { background-color: var(--background-color, ${colors.black}); color: var(--color, ${colors.white}); }
         :host([no-scroll]) > pre { overflow: auto !important; }
+        view-json[no-scroll] > pre { overflow: auto !important; }
         :host([inline]) > pre { display: inline; }
-        :host .string { color: var(--string-color, #a3eea0); }/* green */
-        :host .number { color: var(--number-color, #d19a66); }/* orange */
-        :host .boolean { color: var(--boolean-color, #4ba7ef); }/* blue */
-        :host .null { color: var(--null-color, #df9cf3); }/* magenta */
-        :host .key { color: var(--key-color, #f9857b); }/* red */
+        view-json[inline] > pre { display: inline; }
+        :host .string { color: var(--string-color, ${colors.green}); }/* green *//* :host is SHADOW ONLY */
+        view-json .string { color: var(--string-color, ${colors.green}); }/* green *//* :host is SHADOW ONLY */
+        :host .number { color: var(--number-color, ${colors.orange}); }/* orange */
+        view-json .number { color: var(--number-color, ${colors.orange}); }/* when no shadow is available (shady/light/regular DOM) */
+        :host .boolean { color: var(--boolean-color, ${colors.blue}); }/* blue */
+        view-json .boolean { color: var(--boolean-color, ${colors.blue}); }/* blue */
+        :host .null { color: var(--null-color, ${colors.magenta}); }/* magenta */
+        view-json .null { color: var(--null-color, ${colors.magenta}); }/* magenta */
+        :host .key { color: var(--key-color, ${colors.red}); }/* red */
+        view-json .key { color: var(--key-color, ${colors.red}); }/* red */
         #view-json__pre { box-shadow: 0 2px 2px rgba(0, 0, 0, .3); overflow: scroll; padding: 5px; margin: 5px; }
       </style>
       <pre id="view-json__pre"></pre>
@@ -25,7 +31,7 @@ customElements.define('view-json', class extends HTMLElement {
   }
   connectedCallback() {
     this._refresh();
-    var observer = new MutationObserver(function(mutations) {
+    const observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
         if (mutation.target.tagName === 'VIEW-JSON') this._refresh();
       }.bind(this));
@@ -42,8 +48,7 @@ customElements.define('view-json', class extends HTMLElement {
       preEl.innerHTML = `<span class='key'>${e}</span>`;
     }
   }
-  //thanks: https://stackoverflow.com/a/7220510/4151489
-  _syntaxHighlight(json) {
+  _syntaxHighlight(json) {//thanks: https://stackoverflow.com/a/7220510/4151489
     if (typeof json != 'string') json = JSON.stringify(json, undefined, 2);
     else json = JSON.stringify(JSON.parse(json), undefined, 2);
     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

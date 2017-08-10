@@ -15,13 +15,23 @@
       --boolean-color: orange;
       --null-color: grey;
       --key-color: magenta;*/
+      /*--string-color: blue;*/
      }
     </style>
     <view-json>
       { "view json": "native v1 web component", "css variables": ["--background-color","--color","--string-color","--number-color","--boolean-color","--null-color","--key-color"], "attributes": ["inline","no-scroll","no-parse"], "dependencies": null,"lines of code":64 }
     </view-json>
 
-    <p>Changes to <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">innerHTML</view-json> of component are refreshed live</p>
+    <p id="change-innerhtml-when-clicked">Changes to <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">innerHTML</view-json> of component are refreshed live</p>
+    <script>
+    let changeTriggerEl = document.querySelector('#change-innerhtml-when-clicked');
+    let changeTargetEl = changeTriggerEl.querySelector('view-json');
+    changeTriggerEl.addEventListener('click', function() {
+      if (changeTriggerEl.classList.contains('customized')) changeTargetEl.innerHTML = 'innerHTML';
+      else changeTargetEl.innerHTML = 'innerHTML (told you so)';
+      changeTriggerEl.classList.toggle('customized');
+    });
+    </script>
     <p>Only valid JSON is accepted or you will get something like <view-json no-scroll inline>{</view-json></p>
     <p>Inline stuff with the <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">inline</view-json>attribute</p>
     <p>To turn off parsing (acts just like a <view-json no-scroll inline no-parse style="--color:black;--background-color:white;"><&zwj;pre></view-json>), add the <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">no-parse</view-json>attribute</p>
