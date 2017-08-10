@@ -27,7 +27,6 @@ customElements.define('view-json', class extends HTMLElement {
     this._refresh();
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        console.log(mutation.target.tagName);
         if (mutation.target.tagName === 'VIEW-JSON') this._refresh();
       }.bind(this));
     }.bind(this));
