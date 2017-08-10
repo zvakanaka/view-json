@@ -6,7 +6,9 @@
 <custom-element-demo>
   <template>
     <link rel="import" href="view-json.html">
-    <view-json></view-json>
+    <view-json>
+      { "view json": "native v1 web component", "css variables": ["--background-color","--color","--string-color","--number-color","--boolean-color","--null-color","--key-color"], "attributes": ["inline","no-scroll","no-parse"], "dependencies": null,"lines of code":64 }
+    </view-json>
   </template>
 </custom-element-demo>
 ```
