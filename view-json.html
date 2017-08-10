@@ -1,0 +1,63 @@
+<script>
+(function() {
+'use strict';
+customElements.define('view-json', class extends HTMLElement {
+  constructor() {
+    super(); // always always
+    let shadowRoot = this.attachShadow({mode: 'open'});
+    shadowRoot.innerHTML = `
+      <style>
+        :host pre {
+          background-color: var(--background-color, #282c34);/* dark-grey */
+          color: var(--color, #dbdff4);/* off-white */
+        }
+        :host([no-scroll]) > pre { overflow: auto !important; }
+        :host([inline]) > pre { display: inline; }
+        :host .string { color: var(--string-color, #a3eea0); }/* green */
+        :host .number { color: var(--number-color, #d19a66); }/* orange */
+        :host .boolean { color: var(--boolean-color, #4ba7ef); }/* blue */
+        :host .null { color: var(--null-color, #df9cf3); }/* magenta */
+        :host .key { color: var(--key-color, #f9857b); }/* red */
+        #view-json__pre { box-shadow: 0 2px 2px rgba(0, 0, 0, .3); overflow: scroll; padding: 5px; margin: 5px; }
+      </style>
+      <pre id="view-json__pre"></pre>
+    `;
+  }
+  connectedCallback() {
+    this._refresh();
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        console.log(mutation.target.tagName);
+        if (mutation.target.tagName === 'VIEW-JSON') this._refresh();
+      }.bind(this));
+    }.bind(this));
+    observer.observe(this, { attributes: true, childList: true, characterData: true });
+  }
+  disconnectedCallback() {}
+  _refresh() {
+    const preEl = this.shadowRoot.querySelector('#view-json__pre');
+    try {
+      if (Array.from(this.attributes).map(item => item.name).includes('no-parse')) preEl.innerHTML = this.textContent;
+      else preEl.innerHTML = this._syntaxHighlight(this.textContent);
+    } catch(e) {
+      preEl.innerHTML = `<span class='key'>${e}</span>`;
+    }
+  }
+  //thanks: https://stackoverflow.com/a/7220510/4151489
+  _syntaxHighlight(json) {
+    if (typeof json != 'string') json = JSON.stringify(json, undefined, 2);
+    else json = JSON.stringify(JSON.parse(json), undefined, 2);
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      let colorCode = 'number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) colorCode = 'key';
+        else colorCode = 'string';
+      } else if (/true|false/.test(match)) colorCode = 'boolean';
+      else if (/null/.test(match)) colorCode = 'null';
+      return '<span class="' + colorCode + '">' + match + '</span>';
+    });
+  }
+});
+})();
+</script>

@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>View JSON Demo</title>
+    <link rel="import" href="./view-json.html">
+  </head>
+    <style>
+    body {
+      font-family: Helvetica;
+    }
+    view-json {
+      /*--background-color: #333;
+      --color: #ddd;
+      --string-color: #2d2;
+      --number-color: pink;
+      --boolean-color: orange;
+      --null-color: grey;
+      --key-color: magenta;*/
+     }
+    </style>
+    <view-json>
+      { "view json": "native v1 web component", "css variables": ["--background-color","--color","--string-color","--number-color","--boolean-color","--null-color","--key-color"], "attributes": ["inline","no-scroll","no-parse"], "dependencies": null,"lines of code":64 }
+    </view-json>
+
+    <p>Changes to <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">innerHTML</view-json> of component are refreshed live</p>
+    <p>Only valid JSON is accepted or you will get something like <view-json no-scroll inline>{</view-json></p>
+    <p>Inline stuff with the <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">inline</view-json>attribute</p>
+    <p>To turn off parsing (acts just like a <view-json no-scroll inline no-parse style="--color:black;--background-color:white;"><&zwj;pre></view-json>), add the <view-json no-scroll inline no-parse style="--color:black;--background-color:white;">no-parse</view-json>attribute</p>
+    <p>Colors can be overwriden via css vars:<view-json no-scroll no-parse>view-json {
+  --background-color: #333;
+  --color: #ddd;
+  --string-color: #2d2;
+  --number-color: pink;
+  --boolean-color: orange;
+  --null-color: grey;
+  --key-color: magenta;
+}</view-json></p>
+  </body>
+</html>
