@@ -22,14 +22,28 @@ JSON within the element is prettyfied and colorized:
   { "jsonStuff": "is great stuff" }
 </view-json>
 ```
-## no-parse
+### no-parse
 ```html
 <view-json no-parse>
   Put whatever in here, but you lose color
 </view-json>
+```
+### inline
+```html
+Hello, <view-json inline no-parse>I'm inline</view-json>, so what.
 ```
 | Attribute | Behavior |
 | :------------- | :------------- |
 | inline | Looks `like this` |
 | no-parse | Don't parse as JSON |
 | no-scroll | Don't show scrollbar (ugly sometimes) |
+
+| CSS Variables |
+| :------------- |
+| `--background-color` |
+| `--color` |
+| `--string-color` |
+| `--number-color` |
+| `--boolean-color` |
+| `--null-color` |
+| `--key-color` |
