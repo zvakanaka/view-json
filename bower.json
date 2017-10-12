@@ -5,7 +5,7 @@
     "Adam Quinton <quintonish@gmail.com>"
   ],
   "description": "native v1 web component super-pre tag",
-  "main": "view-json.html",
+  "main": "view-json.js",
   "keywords": [
     "json",
     "viewer",
