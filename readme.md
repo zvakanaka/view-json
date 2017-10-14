@@ -36,7 +36,6 @@ Hello, <view-json inline no-parse>I'm inline</view-json>, so what.
 | :------------- | :------------- |
 | inline | Looks `like this` |
 | no-parse | Don't parse as JSON |
-| no-scroll | Don't show scrollbar (ugly sometimes) |
 
 | CSS Variables |
 | :------------- |
