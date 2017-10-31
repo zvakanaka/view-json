@@ -47,39 +47,34 @@
 }</view-json></p>
   <a style="font-family:monospace;" href="https://github.com/zvakanaka/view-json">github</a>
   <script>
-(function() {
-  'use strict';
-  // thanks: https://gist.github.com/ebidel/1d5ede1e35b6f426a2a7
-  function lazyLoadWCPolyfillsIfNecessary() {
-    var onload = function() {
-      // For native Imports, manually fire WCR so user code
-      // can use the same code path for native and polyfill'd imports.
-      if (!window.HTMLImports) {
-        document.dispatchEvent(
-          new CustomEvent('WebComponentsReady', {bubbles: true}));
+  (function() {
+    'use strict';
+    // thanks: https://gist.github.com/ebidel/1d5ede1e35b6f426a2a7
+    function lazyLoadWCPolyfillsIfNecessary(src) {
+      var onload = function() {
+        // For native Imports, manually fire WCR so user code
+        // can use the same code path for native and polyfill'd imports.
+        if (!window.HTMLImports) {
+          document.dispatchEvent(
+            new CustomEvent('WebComponentsReady', {bubbles: true}));
+        }
+      };
+      var webComponentsSupported = (
+        'registerElement' in document
+        && 'import' in document.createElement('link')
+        && 'content' in document.createElement('template'));
+      if (!webComponentsSupported) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = src;
+        script.onload = onload;
+        document.head.appendChild(script);
+      } else {
+        onload();
       }
-    };
-    var onloadIntermediate = function() {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = './view-json.js';
-      script.onload = onload;
-      document.head.appendChild(script);
-    };
-    var webComponentsSupported = (
-      'registerElement' in document);
-    if (!webComponentsSupported) {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.17/webcomponents-sd-ce.js';
-      script.onload = onloadIntermediate;
-      document.head.appendChild(script);
-    } else {
-      onloadIntermediate();
     }
-  }
-  lazyLoadWCPolyfillsIfNecessary();
-}());
+    lazyLoadWCPolyfillsIfNecessary('https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.7/webcomponents-loader.js');
+  })();
   </script>
   </body>
 </html>
