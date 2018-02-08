@@ -13,6 +13,8 @@ customElements.define('view-json', class extends HTMLElement {
     view-json pre { background-color: var(--background-color, ${colors.black}); color: var(--color, ${colors.white}); overflow: auto !important; }
     :host([inline]) > pre { display: inline; }
     view-json[inline] > pre { display: inline; }
+    :host([fit]) > pre { width: fit-content; width: -moz-fit-content; width: -webkit-fit-content; }
+    view-json[fit] > pre { width: fit-content; width: -moz-fit-content; width: -webkit-fit-content; }
     :host .string { color: var(--string-color, ${colors.green}); }/* :host is SHADOW ONLY */
     view-json .string { color: var(--string-color, ${colors.green}); }
     :host .number { color: var(--number-color, ${colors.orange}); }
